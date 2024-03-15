@@ -4,7 +4,7 @@
     <div class="container initial-setting-container">
       <!-- Back Button -->
       <router-link to="/">
-        <button class="btn btn-secondary mb-3" style="margin-right: 100%;">Back</button>
+        <button class="btn btn-secondary mb-3" style="margin-right: 100%; margin-top: 20px;">Back</button>
       </router-link>
 
       <div class="initial-setting">

@@ -18,6 +18,12 @@ export default {
 }
 </script>
 <style scoped>
+
+.navbar{
+    position: fixed;
+    height: 60px;
+    
+}
 /* Add custom styles for sidebar */
 .sidebar {
     position: fixed;

@@ -1,5 +1,5 @@
 <template>
-    <div class="announcement" style="margin-left: 15%;">
+    <div class="announcement" style="margin-left: 15%; margin-top: 50px;">
         <h2 id = "title">Announcement</h2>
         <p>This is your announcement content.</p>
       </div>

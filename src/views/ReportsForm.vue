@@ -1,7 +1,7 @@
 <template>
-  <div class='card' style="margin-left: 15%;">
-    <div class="card-header">
-      <label for="" class="text-primary h4 float-start">Report's List</label>
+  <div class='card' style="margin-left: 15%; margin-top: 80px;">
+    <div class="card-header" >
+      <label for="" class="text-primary h4 float-start" >Report's List</label>
       <router-link to="/reports/add" class="btn btn-primary btn-sm float-end">Create Reports</router-link>
     </div>
     <div class="card-body">
