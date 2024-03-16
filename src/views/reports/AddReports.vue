@@ -46,7 +46,6 @@
 
         <!-- Save and Submit Buttons -->
         <div class="form-group mt-3"> <!-- Added mt-3 class for margin-top -->
-          <button type="button" class="btn btn-primary" style="margin-right: 5%;" @click="saveTemporary">Save as Temporary</button>
           <button type="submit" class="btn btn-success">Submit to Company</button> <!-- Added ml-2 and mr-2 classes for margin-left and margin-right -->
         </div>  
       </div>

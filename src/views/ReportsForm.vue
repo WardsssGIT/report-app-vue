@@ -1,7 +1,7 @@
 <template>
   <div class='card' style="margin-left: 15%; margin-top: 80px;">
-    <div class="card-header" >
-      <label for="" class="text-primary h4 float-start" >Report's List</label>
+    <div class="card-header">
+      <label for="" class="text-primary h4 float-start">Report's List</label>
       <router-link to="/reports/add" class="btn btn-primary btn-sm float-end">Create Reports</router-link>
     </div>
     <div class="card-body">
@@ -19,9 +19,9 @@
           </thead>
           <tbody class="tableM">
             <tr v-for="(report, index) in reports" :key="index">
-              <td>{{ report.dateOfReport }}</td>
-              <td>{{ report.vesselName }}</td>
-              <td>{{ report.vesselType }}</td>
+              <td>{{ report.dateofreport }}</td>
+              <td>{{ report.vesselname }}</td>
+              <td>{{ report.vesseltype }}</td>
               <td>{{ report.rank }}</td>
               <td>{{ report.name }}</td>
               <td>
@@ -40,23 +40,38 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  props: {
-    reports: Array
+  data() {
+    return {
+      reports: []
+    }
+  },
+  mounted() {
+    this.fetchdata()
   },
   methods: {
     viewReport(index) {
-      // View report logic
       console.log("View report at index", index);
     },
     editReport(index) {
-      // Edit report logic
       console.log("Edit report at index", index);
     },
     removeReport(index) {
-      // Remove report logic
       this.$emit('removeReport', index);
+    },
+    fetchdata() {
+      axios.get('http://127.0.0.1:8000/api/reports')
+        .then(response => {
+          this.reports = response.data
+          console.log(this.reports)
+
+        }).catch(error => {
+          console.log(error)
+        })
     }
   }
+
 };
 </script>
