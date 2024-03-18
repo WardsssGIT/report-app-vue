@@ -46,3 +46,31 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.sidebar {
+  width: 200px;
+}
+
+.list-group {
+  padding: 0;
+  list-style-type: none;
+}
+
+.list-group-item {
+  background-color: #333;
+  color: white;
+  border: none;
+}
+
+.list-group-item a {
+  display: block;
+  padding: 10px; 
+  text-decoration: none;
+  color: white;
+}
+
+.list-group-item a:hover {
+  background-color: #555; 
+}
+</style>

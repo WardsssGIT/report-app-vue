@@ -12,6 +12,7 @@
               <th>Date of Report</th>
               <th>Report Name</th>
               <th>Report Type</th>
+              <th>Department Involved</th>
               <th>Position</th>
               <th>Name</th>
               <th>Actions</th>
@@ -22,6 +23,7 @@
               <td>{{ report.dateofreport }}</td>
               <td>{{ report.vesselname }}</td>
               <td>{{ report.reporttype }}</td>
+              <td>{{ report.departmentinvolved }}</td>
               <td>{{ report.rank }}</td>
               <td>{{ report.name }}</td>
               <td>

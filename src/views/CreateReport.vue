@@ -9,9 +9,9 @@
             <label for="serialNumber">Ser. No.: N2024ACA002</label>
           </div>
           <div class="form-group">
-            <label id="vn" for="vesselName">Vessel Name:</label>
+            <label id="vn" for="vesselName">Report Name:</label>
             <input class="form-control Luke" type="text" id="vesselName" v-model="report.vesselName" required>
-            <label for="vesselType">Vessel Type:</label>
+            <label for="vesselType">Report Type:</label>
             <input class="form-control" type="text" id="vesselType" v-model="report.vesselType" required>
           </div>
           <div class="form-group">

@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="../assets/bma.png" alt="Logo" class="logo-image">
       </div>
-      <h1 class="page-title">Reporting</h1>
+      <h1 class="page-title">REPORTING TOOL</h1>
       <p class="login-label">Login</p>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
       <form class="login-form" @submit.prevent="onLogin()">

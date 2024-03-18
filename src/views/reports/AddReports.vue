@@ -3,7 +3,7 @@
     <!-- Content for Make Report -->
     <div class="container initial-setting-container">
       <!-- Back Button -->
-      <router-link to="/">
+      <router-link to="/Reports">
         <button class="btn btn-secondary mb-3" style="margin-right: 100%; margin-top: 20px;">Back</button>
       </router-link>
 
@@ -13,30 +13,30 @@
           <h2>Make Report</h2>
         </div>
 
-        <!-- Date of Report -->
+        <!-- Form Inputs -->
         <div class="form-group">
           <label for="dateOfReport">Date of Report:</label>
-          <input type="date" class="form-control" id="dateOfReport" v-model="report.dateOfReport" required>
+          <input type="date" class="form-control" id="dateOfReport" v-model="report.dateofreport" required>
           <small class="form-text text-muted">Ser. No.: N2024ACA002</small>
         </div>
-
-        <!-- Vessel Name and Type -->
         <div class="form-group">
-          <label for="vesselName">Vessel Name:</label>
-          <input type="text" class="form-control" id="vesselName" v-model="report.vesselName" required>
-          <label for="vesselType">Vessel Type:</label>
-          <input type="text" class="form-control" id="vesselType" v-model="report.vesselType" required>
+          <label for="vesselName">Report Name:</label>
+          <input type="text" class="form-control" id="vesselName" v-model="report.vesselname" required>
         </div>
-
-        <!-- Description -->
+        <div class="form-group">
+          <label for="vesselType">Report Type:</label>
+          <input type="text" class="form-control" id="vesselType" v-model="report.vesseltype" required>
+        </div>
         <div class="form-group">
           <label for="description">Description:</label>
           <textarea class="form-control" id="description" rows="5" v-model="report.description" required></textarea>
         </div>
-
-        <!-- Rank and Name -->
         <div class="form-group">
-          <label for="rank">Rank (Optional):</label>
+          <label for="departmentinvolved">Department Involved:</label>
+          <input type="text" class="form-control" id="departmentinvolved" v-model="report.departmentinvolved" required>
+        </div>
+        <div class="form-group">
+          <label for="rank">Position (Optional):</label>
           <input type="text" class="form-control" id="rank" v-model="report.rank">
         </div>
         <div class="form-group">
@@ -44,9 +44,12 @@
           <input type="text" class="form-control" id="name" v-model="report.name">
         </div>
 
+        <!-- Error Message -->
+        <div v-if="submitError" class="alert alert-danger">{{ submitError }}</div>
+
         <!-- Save and Submit Buttons -->
         <div class="form-group mt-3"> <!-- Added mt-3 class for margin-top -->
-          <button type="submit" class="btn btn-success">Submit to Company</button> <!-- Added ml-2 and mr-2 classes for margin-left and margin-right -->
+          <button type="submit" class="btn btn-success" @click="submitForm">Submit</button> <!-- Added ml-2 and mr-2 classes for margin-left and margin-right -->
         </div>  
       </div>
     </div>
@@ -54,26 +57,53 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'MakeReport',
   data() {
     return {
       report: {
-        dateOfReport: '',
-        vesselName: '',
-        vesselType: '',
+        dateofreport: '',
+        vesselname: '',
+        vesseltype: '',
         description: '',
+        departmentinvolved: '',
         rank: '',
         name: ''
-      }
+      },
+      submitError: ''
     };
   },
+
   methods: {
-    saveTemporary() {
-      // Save logic
-    },
     submitForm() {
-      // Submit logic
+      for (let key in this.report) {
+        if (!this.report[key]) {
+          this.submitError = 'Please fill out all fields.';
+          return;
+        }
+      }
+
+      axios.post('http://127.0.0.1:8000/api/reports-upload', report)
+        .then(() => {
+          this.resetForm();
+          this.fetchForms(); 
+        })
+        .catch(error => {
+          if (error.response && error.response.data && error.response.data.message) {
+            console.log(error.response.data);
+            this.submitError = error.response.data.message;
+          } else {
+            this.submitError = 'An error occurred.';
+          }
+        });
+    },
+    resetForm() { 
+      for (let key in this.report) {
+        this.report[key] = '';
+      }
+      this.submitError = '';
     }
   }
 };
