@@ -85,7 +85,7 @@ export default {
         }
       }
 
-      axios.post('http://127.0.0.1:8000/api/reports-upload', report)
+      axios.post('http://127.0.0.1:8000/api/reports-upload', this.report)
         .then(() => {
           this.resetForm();
           this.fetchForms(); 
