@@ -10,7 +10,7 @@
       <div class="initial-setting">
         <!-- Banner -->
         <div class="banner">
-          <h2>Make Report</h2>
+          <h2>Edit Report</h2>
         </div>
 
         <!-- Form Inputs -->
