@@ -84,7 +84,7 @@ export default {
           return;
         }
       }
-const data={ dateofreport: this.report.dateofreport,
+        const data={ dateofreport: this.report.dateofreport,
         vesselname: '',
         vesseltype: '',
         description: '',
