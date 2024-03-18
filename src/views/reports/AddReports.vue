@@ -84,8 +84,15 @@ export default {
           return;
         }
       }
+const data={ dateofreport: this.report.dateofreport,
+        vesselname: '',
+        vesseltype: '',
+        description: '',
+        departmentinvolved: '',
+        rank: '',
+        name: ''}
 
-      axios.post('http://127.0.0.1:8000/api/reports-upload', report)
+      axios.post('http://127.0.0.1:8000/api/reports-upload', data)
         .then(() => {
           this.resetForm();
           this.fetchForms(); 
