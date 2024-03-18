@@ -10,9 +10,9 @@
           <thead>
             <tr>
               <th>Date of Report</th>
-              <th>Vessel Name</th>
-              <th>Vessel Type</th>
-              <th>Rank</th>
+              <th>Report Name</th>
+              <th>Report Type</th>
+              <th>Position</th>
               <th>Name</th>
               <th>Actions</th>
             </tr>
@@ -21,7 +21,7 @@
             <tr v-for="(report, index) in reports" :key="index">
               <td>{{ report.dateofreport }}</td>
               <td>{{ report.vesselname }}</td>
-              <td>{{ report.vesseltype }}</td>
+              <td>{{ report.reporttype }}</td>
               <td>{{ report.rank }}</td>
               <td>{{ report.name }}</td>
               <td>
