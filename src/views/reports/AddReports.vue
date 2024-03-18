@@ -43,13 +43,17 @@
           <label for="name">Name (Optional):</label>
           <input type="text" class="form-control" id="name" v-model="report.name">
         </div>
+        <div class="form-group">
+          <label for="reportType">Report Type:</label>
+          <input type="text" class="form-control" id="reportType" v-model="report.reporttype" required>
+        </div>
 
         <!-- Error Message -->
         <div v-if="submitError" class="alert alert-danger">{{ submitError }}</div>
 
         <!-- Save and Submit Buttons -->
         <div class="form-group mt-3"> <!-- Added mt-3 class for margin-top -->
-          <button type="submit" class="btn btn-success" @click="submitForm">Submit</button> <!-- Added ml-2 and mr-2 classes for margin-left and margin-right -->
+          <button type="button" class="btn btn-success" @click="submitForm">Submit</button> <!-- Changed type to "button" -->
         </div>  
       </div>
     </div>
@@ -70,7 +74,8 @@ export default {
         description: '',
         departmentinvolved: '',
         rank: '',
-        name: ''
+        name: '',
+        reporttype: ''
       },
       submitError: ''
     };
@@ -78,26 +83,25 @@ export default {
 
   methods: {
     submitForm() {
+      // Check if all required fields are filled
       for (let key in this.report) {
         if (!this.report[key]) {
           this.submitError = 'Please fill out all fields.';
           return;
         }
       }
-        const data ={ 
-        dateofreport: this.report.dateofreport,
-        vesselname: this.report.vesselname,
-        vesseltype: this.report.vesseltype,
-        description: this.report.description,
-        departmentinvolved: this.report.departmentinvolved,
-        rank: this.report.rank,
-        name: this.report.name
-      }
-      console.log(data)
+        const data={ dateofreport: this.report.dateofreport,
+        vesselname: '',
+        vesseltype: '',
+        description: '',
+        departmentinvolved: '',
+        rank: '',
+        name: ''}
+
       axios.post('http://127.0.0.1:8000/api/reports-upload', data)
         .then(() => {
           this.resetForm();
-          this.fetchForms(); 
+          // If you have a method to fetch updated forms, call it here
         })
         .catch(error => {
           if (error.response && error.response.data && error.response.data.message) {
@@ -108,7 +112,12 @@ export default {
           }
         });
     },
-  
+    resetForm() { 
+      for (let key in this.report) {
+        this.report[key] = '';
+      }
+      this.submitError = '';
+    }
   }
 };
 </script>
