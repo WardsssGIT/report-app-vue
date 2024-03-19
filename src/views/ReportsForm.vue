@@ -28,10 +28,10 @@
               <td>{{ report.name }}</td>
               <td>
                 <router-link :to="{ name: 'View Reports', params: { data: report.id } }" button
-                  class="btn btn-view">View</router-link>
-                  <router-link :to="{ name: 'Edit Reports', params: { data: report.id } }" button
-                  class="btn btn-view">Edit</router-link>
-                <button class="btn btn-remove" @click="removeReport(index)">Remove</button>
+                  class="btn btn-primary btn-view">View</router-link>
+                <router-link :to="{ name: 'Edit Reports', params: { data: report.id } }" button
+                  class="btn btn-success btn-edit">Edit</router-link>
+                <button class="btn btn-danger btn-remove" @click="remove(report.id)">Remove</button>
               </td>
             </tr>
           </tbody>
@@ -40,7 +40,6 @@
     </div>
 
   </div>
-
 </template>
 
 <script>
@@ -56,6 +55,10 @@ export default {
     this.fetchdata()
   },
   methods: {
+    remove(id) {
+      axios.put(`http://127.0.0.1:8000/api/reports/archive/${id}`)
+      this.fetchdata();
+    },
     viewReport(index) {
       console.log("View report at index", index);
     },
@@ -76,6 +79,5 @@ export default {
         })
     }
   }
-
 };
 </script>

@@ -43,10 +43,6 @@
           <label for="name">Name (Optional):</label>
           <input type="text" class="form-control" id="name" v-model="report.name">
         </div>
-        <div class="form-group">
-          <label for="reportType">Report Type:</label>
-          <input type="text" class="form-control" id="reportType" v-model="report.reporttype" required>
-        </div>
 
         <!-- Error Message -->
         <div v-if="submitError" class="alert alert-danger">{{ submitError }}</div>
