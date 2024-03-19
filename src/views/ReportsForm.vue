@@ -27,7 +27,8 @@
               <td>{{ report.rank }}</td>
               <td>{{ report.name }}</td>
               <td>
-                <button class="btn btn-view" @click="viewReport(index)">View</button>
+                <router-link :to="{ name: 'Edit Reports', params: { data: report.id } }" button
+                  class="btn btn-view">View</router-link>
                 <button class="btn btn-edit" @click="editReport(index)">Edit</button>
                 <button class="btn btn-remove" @click="removeReport(index)">Remove</button>
               </td>
