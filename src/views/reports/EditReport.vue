@@ -71,12 +71,11 @@ export default {
       report: {
         dateofreport: '',
         vesselname: '',
-        vesseltype: '',
+        reporttype: '',
         description: '',
         departmentinvolved: '',
         rank: '',
         name: '',
-        reporttype: ''
       },
       submitError: ''
     };
@@ -91,12 +90,11 @@ export default {
          const reports = response.data
          this.report.dataofreports = reports.report.dateofreport
          this.report.vesselname = reports.report.vesselname
-         this.report.vesseltype = reports.report.vesseltype
+         this.report.reporttype = reports.report.reporttype
          this.report.description = reports.report.description
          this.report.departmentinvolved = reports.report.departmentinvolved
          this.report.rank = reports.report.rank
          this.report.name = reports.report.name
-         this.report.reporttype = reports.report.reporttype
          console.log(response.data)
         }).catch(error => {
           console.log(error)
@@ -115,12 +113,11 @@ export default {
       const data = {
         dateofreport: this.report.dateofreport,
         vesselname: this.report.vesselname,
-        vesseltype: this.report.vesseltype,
+        reporttype: this.report.reporttype,
         description: this.report.description,
         departmentinvolved: this.report.departmentinvolved,
         rank: this.report.rank,
         name: this.report.name,
-        reporttype: this.report.reporttype
       };
 
       axios.post('http://127.0.0.1:8000/api/reports-upload', data)

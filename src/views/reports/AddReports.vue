@@ -70,12 +70,11 @@ export default {
       report: {
         dateofreport: '',
         vesselname: '',
-        vesseltype: '',
+        reporttype: '',
         description: '',
         departmentinvolved: '',
         rank: '',
         name: '',
-        reporttype: ''
       },
       submitError: ''
     };
@@ -90,17 +89,13 @@ export default {
           return;
         }
       }
-      // Data to be sent
-      const data = { 
-        dateofreport: this.report.dateofreport,
-        vesselname: this.report.vesselname,
-        vesseltype: this.report.vesseltype,
-        description: this.report.description,
-        departmentinvolved: this.report.departmentinvolved,
-        rank: this.report.rank,
-        name: this.report.name,
-        reporttype: this.report.reporttype
-      };
+        const data={ dateofreport: this.report.dateofreport,
+        vesselname: '',
+        reporttype: '',
+        description: '',
+        departmentinvolved: '',
+        rank: '',
+        name: ''}
 
       axios.post('http://127.0.0.1:8000/api/reports-upload', data)
         .then(() => {
@@ -117,7 +112,6 @@ export default {
         });
     },
     resetForm() { 
-      // Reset form fields and error message
       for (let key in this.report) {
         this.report[key] = '';
       }
