@@ -24,8 +24,8 @@
           <input type="text" class="form-control" id="vesselName" v-model="report.vesselname" required>
         </div>
         <div class="form-group">
-          <label for="vesselType">Report Type:</label>
-          <input type="text" class="form-control" id="vesselType" v-model="report.vesseltype" required>
+          <label for="reportType">Report Type:</label>
+          <input type="text" class="form-control" id="reportType" v-model="report.reporttype" required>
         </div>
         <div class="form-group">
           <label for="description">Description:</label>
@@ -42,10 +42,6 @@
         <div class="form-group">
           <label for="name">Name (Optional):</label>
           <input type="text" class="form-control" id="name" v-model="report.name">
-        </div>
-        <div class="form-group">
-          <label for="reportType">Report Type:</label>
-          <input type="text" class="form-control" id="reportType" v-model="report.reporttype" required>
         </div>
 
         <!-- Error Message -->
@@ -82,35 +78,28 @@ export default {
 
   methods: {
     submitForm() {
-      // Check if all required fields are filled
-      for (let key in this.report) {
-        if (!this.report[key]) {
-          this.submitError = 'Please fill out all fields.';
-          return;
-        }
-      }
-        const data={ dateofreport: this.report.dateofreport,
-        vesselname: '',
-        reporttype: '',
-        description: '',
-        departmentinvolved: '',
-        rank: '',
-        name: ''}
+  // Check if all required fields are filled
+  for (let key in this.report) {
+    if (!this.report[key]) {
+      this.submitError = 'Please fill out all fields.';
+      return;
+    }
+  }
 
-      axios.post('http://127.0.0.1:8000/api/reports-upload', data)
-        .then(() => {
-          this.resetForm();
-          // If you have a method to fetch updated forms, call it here
-        })
-        .catch(error => {
-          if (error.response && error.response.data && error.response.data.message) {
-            console.log(error.response.data);
-            this.submitError = error.response.data.message;
-          } else {
-            this.submitError = 'An error occurred.';
-          }
-        });
-    },
+  axios.post('http://127.0.0.1:8000/api/reports-upload', this.report)
+    .then(() => {
+      this.resetForm();
+      // If you have a method to fetch updated forms, call it here
+    })
+    .catch(error => {
+      if (error.response && error.response.data && error.response.data.message) {
+        console.log(error.response.data);
+        this.submitError = error.response.data.message;
+      } else {
+        this.submitError = 'An error occurred.';
+      }
+    });
+},
     resetForm() { 
       for (let key in this.report) {
         this.report[key] = '';
