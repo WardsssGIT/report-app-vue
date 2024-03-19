@@ -31,6 +31,11 @@ const routes = [
         component: () => import("@/views/reports/AddReports.vue"),
       },
       {
+        path: "/reports/view/:data",
+        name: "View Reports",
+        component: () => import("@/views/reports/ViewReport.vue"),
+      },
+      {
         path: "/reports/edit/:data",
         name: "Edit Reports",
         component: () => import("@/views/reports/EditReport.vue"),

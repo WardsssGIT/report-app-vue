@@ -85,30 +85,23 @@ export default {
   },
   methods: {
     firstLoad(data) {
-      axios.get('http://127.0.0.1:8000/api/reports/'+data)
+      axios.get('http://127.0.0.1:8000/api/reports/' + data)
         .then(response => {
-         const reports = response.data
-         this.report.dataofreports = reports.report.dateofreport
-         this.report.vesselname = reports.report.vesselname
-         this.report.reporttype = reports.report.reporttype
-         this.report.description = reports.report.description
-         this.report.departmentinvolved = reports.report.departmentinvolved
-         this.report.rank = reports.report.rank
-         this.report.name = reports.report.name
-         console.log(response.data)
+          const reports = response.data;
+          this.report.dateofreport = reports.report.dateofreport;
+          this.report.vesselname = reports.report.vesselname;
+          this.report.reporttype = reports.report.reporttype;
+          this.report.description = reports.report.description;
+          this.report.departmentinvolved = reports.report.departmentinvolved;
+          this.report.rank = reports.report.rank;
+          this.report.name = reports.report.name;
+          console.log(response.data);
         }).catch(error => {
-          console.log(error)
-        })
-      console.log(data)
+          console.log(error);
+        });
+      console.log(data);
     },
     submitForm() {
-      // Check if all required fields are filled
-      for (let key in this.report) {
-        if (!this.report[key]) {
-          this.submitError = 'Please fill out all fields.';
-          return;
-        }
-      }
       // Data to be sent
       const data = {
         dateofreport: this.report.dateofreport,
@@ -120,10 +113,11 @@ export default {
         name: this.report.name,
       };
 
-      axios.post('http://127.0.0.1:8000/api/reports-upload', data)
+      axios.put('http://127.0.0.1:8000/api/reports/' + this.$route.params.data, data)
         .then(() => {
+          // If successful, clear form fields and any error message
           this.resetForm();
-          // If you have a method to fetch updated forms, call it here
+          // Optionally, you can redirect the user or show a success message
         })
         .catch(error => {
           if (error.response && error.response.data && error.response.data.message) {
