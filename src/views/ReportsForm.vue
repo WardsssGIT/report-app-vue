@@ -13,8 +13,6 @@
               <th>Report Name</th>
               <th>Report Type</th>
               <th>Department Involved</th>
-              <th>Position</th>
-              <th>Name</th>
               <th>Actions</th>
             </tr>
           </thead>
