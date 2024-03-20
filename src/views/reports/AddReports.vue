@@ -15,34 +15,27 @@
 
         <!-- Form Inputs -->
         <div class="form-group">
-          <label for="dateOfReport">Date of Report:</label>
-          <input type="date" class="form-control" id="dateOfReport" v-model="report.dateofreport" required>
+          <label for="Date_of_report">Date of Report:</label>
+          <input type="date" class="form-control" id="Date_of_report" v-model="report.Date_of_report" required>
           <small class="form-text text-muted">Ser. No.: N2024ACA002</small>
         </div>
         <div class="form-group">
-          <label for="vesselName">Report Name:</label>
-          <input type="text" class="form-control" id="vesselName" v-model="report.vesselname" required>
+          <label for="Report_name">Report Name:</label>
+          <input type="text" class="form-control" id="Report_name" v-model="report.Report_name" required>
         </div>
         <div class="form-group">
-          <label for="reportType">Report Type:</label>
-          <input type="text" class="form-control" id="reportType" v-model="report.reporttype" required>
+          <label for="Report_type">Report Type:</label>
+          <input type="text" class="form-control" id="Report_type" v-model="report.Report_type" required>
         </div>
         <div class="form-group">
-          <label for="description">Description:</label>
-          <textarea class="form-control" id="description" rows="5" v-model="report.description" required></textarea>
+          <label for="Description">Description:</label>
+          <textarea class="form-control" id="Description" rows="5" v-model="report.Description" required></textarea>
         </div>
         <div class="form-group">
-          <label for="departmentinvolved">Department Involved:</label>
-          <input type="text" class="form-control" id="departmentinvolved" v-model="report.departmentinvolved" required>
+          <label for="Department_involved">Department Involved:</label>
+          <input type="text" class="form-control" id="Department_involved" v-model="report.Department_involved" required>
         </div>
-        <div class="form-group">
-          <label for="rank">Position (Optional):</label>
-          <input type="text" class="form-control" id="rank" v-model="report.rank">
-        </div>
-        <div class="form-group">
-          <label for="name">Name (Optional):</label>
-          <input type="text" class="form-control" id="name" v-model="report.name">
-        </div>
+        
 
         <!-- Error Message -->
         <div v-if="submitError" class="alert alert-danger">{{ submitError }}</div>
@@ -64,13 +57,11 @@ export default {
   data() {
     return {
       report: {
-        dateofreport: '',
-        vesselname: '',
-        reporttype: '',
-        description: '',
-        departmentinvolved: '',
-        rank: '',
-        name: '',
+        Date_of_report: '',
+        Report_name: '',
+        Report_type: '',
+        Description: '',
+        Department_involved: '',
       },
       submitError: ''
     };

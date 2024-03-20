@@ -20,12 +20,10 @@
           </thead>
           <tbody class="tableM">
             <tr v-for="(report, index) in reports" :key="index">
-              <td>{{ report.dateofreport }}</td>
-              <td>{{ report.vesselname }}</td>
-              <td>{{ report.reporttype }}</td>
-              <td>{{ report.departmentinvolved }}</td>
-              <td>{{ report.rank }}</td>
-              <td>{{ report.name }}</td>
+              <td>{{ report.Date_of_report }}</td>
+              <td>{{ report.Report_name }}</td>
+              <td>{{ report.Report_type }}</td>
+              <td>{{ report.Department_involved }}</td>
               <td>
                 <router-link :to="{ name: 'View Reports', params: { data: report.id } }" button
                   class="btn btn-primary btn-view">View</router-link>

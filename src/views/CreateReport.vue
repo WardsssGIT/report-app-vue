@@ -4,27 +4,19 @@
         <h1 class="title">Create Report</h1>
         <form @submit.prevent="submitForm">
           <div class="form-group" id="dor">
-            <label for="dateOfReport">Date of Report:</label>
-            <input class="form" type="date" id="dateOfReport" v-model="report.dateOfReport" required>
+            <label for="Date_of_report">Date of Report:</label>
+            <input class="form" type="date" id="Date_of_report" v-model="report.Date_of_report" required>
             <label for="serialNumber">Ser. No.: N2024ACA002</label>
           </div>
           <div class="form-group">
-            <label id="vn" for="vesselName">Report Name:</label>
-            <input class="form-control Luke" type="text" id="vesselName" v-model="report.vesselName" required>
-            <label for="vesselType">Report Type:</label>
-            <input class="form-control" type="text" id="vesselType" v-model="report.vesselType" required>
+            <label id="vn" for="Report_name">Report Name:</label>
+            <input class="form-control Luke" type="text" id="Report_name" v-model="report.Report_name" required>
+            <label for="Report_type">Report Type:</label>
+            <input class="form-control" type="text" id="Report_type" v-model="report.Report_type" required>
           </div>
           <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" v-model="report.description" required></textarea>
-          </div>
-          <div class="form-group">
-            <label for="rank">Rank (Optional):</label>
-            <input class="form-control" type="text" id="rank" v-model="report.rank">
-          </div>
-          <div class="form-group">
-            <label for="name">Name (Optional):</label>
-            <input class="form-control" type="text" id="name" v-model="report.name">
+            <label for="Description">Description:</label>
+            <textarea class="form-control" id="Description" v-model="report.Description" required></textarea>
           </div>
           <div class="form-group">
             <button type="save" class="btn btn-save">Save as Temporary</button>
@@ -46,12 +38,10 @@
     data() {
       return {
         report: {
-          dateOfReport: '',
-          vesselName: '',
-          vesselType: '',
-          description: '',
-          rank: '',
-          name: ''
+          Date_of_report: '',
+          Report_name: '',
+          Report_type: '',
+          Description: '',
         },
         reports: []
       };
@@ -62,12 +52,10 @@
         this.reports.push({ ...this.report });
         // Reset form fields after submission
         this.report = {
-          dateOfReport: '',
-          vesselName: '',
-          vesselType: '',
-          description: '',
-          rank: '',
-          name: ''
+          Date_of_report: '',
+          Report_name: '',
+          Report_type: '',
+          Description: '',
         };
       },
       removeReport(index) {
