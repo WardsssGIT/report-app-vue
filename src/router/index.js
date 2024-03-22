@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "../views/Login.vue";
-//import Dashboard from "../views/Dashboard.vue";
 import Reports from "../views/ReportsForm.vue";
 import AnnouncementPage from "../views/Announcement.vue";
 import Signup from "../views/Signup.vue";
@@ -25,6 +24,17 @@ const routes = [
         path: "/dashboard",
         name: "DashboardDefault",
         component: AnnouncementPage,
+        beforeEnter: (to, from, next) => {
+          // Check if user is authenticated (example only, implement your actual authentication logic)
+          const isAuthenticated = localStorage.getItem("loggedIn") === "true";
+          if (isAuthenticated) {
+            // Proceed to the dashboard
+            next();
+          } else {
+            // Redirect to login page if not authenticated
+            next({ name: "Login" });
+          }
+        },
       },
       {
         path: "/reports",

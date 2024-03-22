@@ -7,7 +7,7 @@
       <h1 class="page-title">REPORTING TOOL</h1>
       <p class="login-label">Login</p>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
-      <form class="login-form" @submit.prevent="onLogin()">
+      <form class="login-form" @submit.prevent="onLogin">
         <div class="form-group">
           <label for="email" class="form-label">Email</label>
           <input type="email" id="email" placeholder="Enter your email" class="input-field" v-model.trim="email">
@@ -23,10 +23,7 @@
           <label for="remember-me" class="remember-checkbox" style="margin-top: 5px;">
             <input id="remember-me" type="checkbox"> Remember Me
           </label>
-          <span>Don't have an account?</span>
-        </div>
-        <div class="signup-section">
-        <router-link to="/register" class="signup-link">Register</router-link>
+          <span>Don't have an account? <router-link to="/register" class="signup-link">Register</router-link></span>
         </div>
         <button type="submit" class="login-button" style="margin-top: 10px;">Login</button>
       </form>
@@ -35,27 +32,38 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'LoginPage',
   data() {
     return {
-      email: '', // Define email property
-      password: '', // Define password property
-      errors: {}, // Initialize errors object if you're using it elsewhere
-      error: '' // Initialize error message if you're using it elsewhere
+      email: '',
+      password: '',
+      errors: {},
+      error: ''
     };
   },
   methods: {
-    onLogin() {
-      // Your login logic here
-      // For demonstration purposes, let's assume login is successful
-      // Redirect to the dashboard
+    async onLogin() {
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/login', { email: this.email, password: this.password });
+    if (response.status === 200 && response.data.success) {
+      console.log('Login successful:', response.data);
+      // Redirect to another page upon successful login
       this.$router.push('/dashboard');
+    } else {
+      this.error = 'Incorrect email or password';
     }
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+    this.error = 'An error occurred. Please try again later.';
+  }
+},
+
   }
 };
 </script>
-
 
 <style scoped>
 .login-page {
@@ -70,7 +78,6 @@ export default {
   border-radius: 15px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   padding: 30px;
-  padding-right: -50px;
   width: 400px;
   background-color: #fff;
 }
@@ -119,13 +126,12 @@ export default {
 
 .input-field {
   padding: 12px;
-  width: calc(100% - 24px); /* Adjust width to leave space for padding */
+  width: calc(100% - 24px);
   border: 2px solid #4CAF50;
   border-radius: 8px;
   font-size: 16px;
-  text-align: left; /* Align text to the right */
+  text-align: left;
 }
-
 
 .input-field:focus {
   outline: none;
@@ -144,13 +150,13 @@ export default {
   margin-bottom: 20px;
 }
 
-.forgot-password {
+.signup-link {
   color: #087f23;
   text-decoration: none;
   font-size: 16px;
 }
 
-.forgot-password:hover {
+.signup-link:hover {
   text-decoration: underline;
 }
 
@@ -169,22 +175,11 @@ export default {
   background-color: #005711;
 }
 
-.signup-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.signup-link {
-  color: #087f23;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.signup-link:hover {
-  text-decoration: underline;
-}
-
 p {
   font-size: 16px;
+}
+
+.alert-danger {
+  color: #ff0000;
 }
 </style>

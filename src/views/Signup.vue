@@ -1,5 +1,4 @@
 <template>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <div class="signup-page">
     <div class="signup-container">
       <div class="logo">
@@ -11,7 +10,7 @@
       <form class="signup-form" @submit.prevent="registerUser">
         <div class="form-group">
           <label for="name" class="form-label">Name</label>
-          <input v-model.trim="Name" placeholder="Enter your name" class="input-field">
+          <input v-model.trim="name" placeholder="Enter your name" class="input-field">
           <div class="error" v-if="errors.email">{{ errors.email }}</div>
         </div>
         <div class="form-group">
@@ -22,7 +21,8 @@
         <div class="form-group">
           <label for="password" class="form-label">Password</label>
           <div class="password-input">
-            <input v-model.trim="password" :type="showPassword ? 'text' : 'password'" placeholder="Enter your password" class="input-field">
+            <input v-model.trim="password" :type="showPassword ? 'text' : 'password'" placeholder="Enter your password"
+              class="input-field">
             <button type="button" class="show-password-button" @click="toggleShowPassword">
               <i :class="['fas', showPassword ? 'fa-eye-slash' : 'fa-eye']"></i>
             </button>
@@ -39,53 +39,57 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import { LOADING_SPINNER_SHOW_MUTATION } from '../store/storeconstants';
 import axios from 'axios';
-import sha256 from 'crypto-js/sha256'; // Import SHA-256 implementation (you may need to install crypto-js)
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'SignupPage',
   data() {
     return {
-      Name: '',
+      name: '',
       email: '',
       password: '',
-      errors: [],
       error: '',
-      showPassword: false, // Track whether the password should be shown
+      errors: {},
+      showPassword: false,
     };
   },
   methods: {
-    ...mapMutations({
-      showLoading: LOADING_SPINNER_SHOW_MUTATION
-    }),
+    ...mapMutations(['showLoading']), // Import showLoading mutation from Vuex store
     async registerUser() {
       try {
-        this.showLoading(true);
-
-        // Hash the password using SHA-256 before sending it to the server
-        const hashedPassword = sha256(this.password).toString();
+        this.showLoading(true); // Trigger Vuex mutation to show loading spinner
 
         await axios.post('http://127.0.0.1:8000/api/register', {
-          name: this.Name,
+          name: this.name,
           email: this.email,
-          password: hashedPassword
+          password: this.password
         });
 
+        // Assuming the API response contains a 'token' field
+        // const token = response.data.token;
+        // You can save this token in Vuex or localStorage for future authenticated requests
+
         this.error = '';
-        this.errors = [];
-        this.Name = '';
+        this.errors = {};
+        this.name = '';
         this.email = '';
         this.password = '';
 
-        this.showLoading(false);
+        this.showLoading(false); // Trigger Vuex mutation to hide loading spinner
 
         alert('User registered successfully!');
       } catch (error) {
-        this.error = error?.response?.data?.message || 'An error occurred while registering the user.';
-        this.errors = [];
-        this.showLoading(false);
+        if (error.response) {
+          // Server responded with a status code outside of 2xx range
+          this.error = error.response.data.error || 'An error occurred while registering the user.';
+          this.errors = error.response.data.errors || {};
+        } else {
+          // Request was made but no response was received
+          this.error = 'An error occurred while registering the user.';
+        }
+
+        this.showLoading(false); // Trigger Vuex mutation to hide loading spinner
       }
     },
     toggleShowPassword() {
@@ -219,5 +223,4 @@ export default {
 .show-password-button i {
   font-size: 18px;
 }
-
 </style>
