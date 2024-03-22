@@ -48,16 +48,16 @@ export default {
     async onLogin() {
   try {
     const response = await axios.post('http://127.0.0.1:8000/api/login', { email: this.email, password: this.password });
-    if (response.status === 200 && response.data.success) {
-      console.log('Login successful:', response.data);
-      // Redirect to another page upon successful login
-      this.$router.push('/dashboard');
-    } else {
-      this.error = 'Incorrect email or password';
-    }
-  } catch (error) {
-    console.error('An error occurred:', error.message);
-    this.error = 'An error occurred. Please try again later.';
+    console.log(response.data);
+    let tokenData = {
+      token: response.data.token
+    };
+    localStorage.setItem('userData', JSON.stringify(tokenData));
+    this.$router.replace('/dashboard');
+  }catch(error) {
+    this.error = error.message || 'An error occured';
+  }finally{
+    this.loading = false;
   }
 },
 
