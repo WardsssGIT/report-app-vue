@@ -3,12 +3,18 @@ import Login from "../views/Login.vue";
 //import Dashboard from "../views/Dashboard.vue";
 import Reports from "../views/ReportsForm.vue";
 import AnnouncementPage from "../views/Announcement.vue";
+import Signup from "../views/Signup.vue";
 
 const routes = [
   {
     path: "/",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/register",
+    name: "Signup",
+    component: Signup,
   },
   {
     path: "/",
@@ -39,7 +45,7 @@ const routes = [
         path: "/reports/edit/:data",
         name: "Edit Reports",
         component: () => import("@/views/reports/EditReport.vue"),
-      }
+      },
     ],
   },
 ];

@@ -5,6 +5,7 @@
         <router-link :to="item.url">{{ item.label }}</router-link>
       </li>
     </ul>
+    <button class="logout-button" @click="logout">Logout</button>
   </div>
 </template>
 
@@ -17,31 +18,11 @@ export default {
         { label: 'Dashboard', url: '/dashboard' },
         { label: 'Reports', url: '/Reports' },
       ],
-      
     };
   },
-  
   methods: {
     logout() {
       this.$router.push({ name: 'Login' });
-    },
-    toggleDepartments() {
-      this.showDepartments = !this.showDepartments;
-    },
-    toggleForms() {
-      this.showForms = !this.showForms;
-    },
-    togglePolicy() {
-      this.showPolicy = !this.showPolicy;
-    },
-    toggleProcedures() {
-      this.showProcedures = !this.showProcedures;
-    },
-    toggleInstructions() {
-      this.showInstructions = !this.showInstructions;
-    },
-    toggleRecords() {
-      this.showRecords = !this.showRecords;
     }
   }
 }
@@ -50,6 +31,7 @@ export default {
 <style scoped>
 .sidebar {
   width: 200px;
+  position: relative; /* Required for absolute positioning of the button */
 }
 
 .list-group {
@@ -72,5 +54,19 @@ export default {
 
 .list-group-item a:hover {
   background-color: #555; 
+}
+
+.logout-button {
+  position: absolute;
+  bottom: 10px;
+  left: 20%;
+  transform: translateX(-50%);
+  padding: 8px 16px; 
+  background-color: #f00;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px; 
 }
 </style>

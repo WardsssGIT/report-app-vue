@@ -23,9 +23,12 @@
           <label for="remember-me" class="remember-checkbox" style="margin-top: 5px;">
             <input id="remember-me" type="checkbox"> Remember Me
           </label>
-          <a href="#" class="forgot-password">Forgot Password?</a>
+          <span>Don't have an account?</span>
         </div>
-        <button type="submit" class="login-button">Login</button>
+        <div class="signup-section">
+        <router-link to="/register" class="signup-link">Register</router-link>
+        </div>
+        <button type="submit" class="login-button" style="margin-top: 10px;">Login</button>
       </form>
     </div>
   </div>
@@ -184,4 +187,4 @@ export default {
 p {
   font-size: 16px;
 }
-</style>./Login.vue
+</style>
