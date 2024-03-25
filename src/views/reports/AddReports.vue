@@ -36,13 +36,13 @@
           <input type="text" class="form-control" id="Department_involved" v-model="report.Department_involved" required>
         </div>
         
-
         <!-- Error Message -->
         <div v-if="submitError" class="alert alert-danger">{{ submitError }}</div>
 
         <!-- Save and Submit Buttons -->
         <div class="form-group mt-3"> <!-- Added mt-3 class for margin-top -->
           <button type="button" class="btn btn-success" @click="submitForm">Submit</button> <!-- Changed type to "button" -->
+          <button type="button" class="btn btn-primary" style="margin-left: 10px;" @click="saveAsTemporary">Save as Temporary</button> <!-- Added margin -->
         </div>  
       </div>
     </div>
@@ -69,33 +69,46 @@ export default {
 
   methods: {
     submitForm() {
-  // Check if all required fields are filled
-  for (let key in this.report) {
-    if (!this.report[key]) {
-      this.submitError = 'Please fill out all fields.';
-      return;
-    }
-  }
-
-  axios.post('http://127.0.0.1:8000/api/reports-upload', this.report)
-    .then(() => {
-      this.resetForm();
-      // If you have a method to fetch updated forms, call it here
-    })
-    .catch(error => {
-      if (error.response && error.response.data && error.response.data.message) {
-        console.log(error.response.data);
-        this.submitError = error.response.data.message;
-      } else {
-        this.submitError = 'An error occurred.';
+      // Check if all required fields are filled
+      for (let key in this.report) {
+        if (!this.report[key]) {
+          this.submitError = 'Please fill out all fields.';
+          return;
+        }
       }
-    });
-},
+
+      axios.post('http://127.0.0.1:8000/api/reports-upload', this.report)
+        .then(() => {
+          this.resetForm();
+          // If you have a method to fetch updated forms, call it here
+        })
+        .catch(error => {
+          if (error.response && error.response.data && error.response.data.message) {
+            console.log(error.response.data);
+            this.submitError = error.response.data.message;
+          } else {
+            this.submitError = 'An error occurred.';
+          }
+        });
+    },
     resetForm() { 
       for (let key in this.report) {
         this.report[key] = '';
       }
       this.submitError = '';
+    },
+    saveAsTemporary() {
+      // Implement saving the report as temporary here
+      // For example, you can make an API call to save the report with a temporary flag
+      // You may need to adjust this according to your backend API
+      axios.post('http://127.0.0.1:8000/api/save-temporary-report', this.report)
+        .then(() => {
+          alert('Report saved as temporary.');
+        })
+        .catch(error => {
+          console.error('Error saving report as temporary:', error);
+          alert('An error occurred while saving the report as temporary.');
+        });
     }
   }
 };
