@@ -60,7 +60,7 @@ export default {
       try {
         this.showLoading(true); // Trigger Vuex mutation to show loading spinner
 
-        await axios.post('http://192.168.100.24:7070/api/register', {
+        await axios.post('register', {
           name: this.name,
           email: this.email,
           password: this.password

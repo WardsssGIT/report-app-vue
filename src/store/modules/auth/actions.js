@@ -35,14 +35,14 @@ export default {
     async [LOGIN_ACTION](context, payload) {
         return context.dispatch(AUTH_ACTION, {
             ...payload,
-            url: `http://127.0.0.1:8000/api/login`,
+            url: `login`,
         });
     },
 
     async [SIGNUP_ACTION](context, payload) {
         return context.dispatch(AUTH_ACTION, {
             ...payload,
-            url: `http://127.0.0.1:8000/api/register`,
+            url: `register`,
         });
     },
 

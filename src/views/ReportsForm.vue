@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { GET_USER_TOKEN_GETTER } from '@/store/storeconstants';
+import { mapGetters } from 'vuex';
 import axios from 'axios';
 
 export default {
@@ -48,11 +50,17 @@ export default {
     }
   },
   mounted() {
-    this.fetchdata()
+    //this.fetchdata()
+    console.log(this.token)
+  },
+  computed: {
+    ...mapGetters('auth', {
+      token: GET_USER_TOKEN_GETTER
+    })
   },
   methods: {
     remove(id) {
-      axios.put(`http://192.168.100.24:7070/api/reports/archive/${id}`)
+      axios.put(`/reports/archive/${id}`)
       this.fetchdata();
     },
     viewReport(index) {
@@ -65,7 +73,9 @@ export default {
       this.$emit('removeReport', index);
     },
     fetchdata() {
-      axios.get('http://192.168.100.24:7070/api/reports')
+      axios.get('/reports', {
+        Authentication: 'Baerer ' + this.token
+      })
         .then(response => {
           this.reports = response.data
           console.log(this.reports)
