@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     remove(id) {
-      axios.put(`http://127.0.0.1:8000/api/reports/archive/${id}`)
+      axios.put(`http://192.168.100.24:7070/api/reports/archive/${id}`)
       this.fetchdata();
     },
     viewReport(index) {
@@ -65,7 +65,7 @@ export default {
       this.$emit('removeReport', index);
     },
     fetchdata() {
-      axios.get('http://127.0.0.1:8000/api/reports')
+      axios.get('http://192.168.100.24:7070/api/reports')
         .then(response => {
           this.reports = response.data
           console.log(this.reports)

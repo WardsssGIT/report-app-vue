@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     firstLoad(data) {
-      axios.get('http://127.0.0.1:8000/api/reports/' + data)
+      axios.get('http://192.168.100.24:7070/api/reports/' + data)
         .then(response => {
           const reports = response.data;
           this.report.Date_of_report = reports.report.Date_of_report;

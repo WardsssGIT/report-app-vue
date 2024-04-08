@@ -47,7 +47,7 @@ export default {
   methods: {
     async onLogin() {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/login', { email: this.email, password: this.password });
+    const response = await axios.post('http://192.168.100.24:7070/api/login', { email: this.email, password: this.password });
     console.log(response.data);
     let tokenData = {
       token: response.data.token
