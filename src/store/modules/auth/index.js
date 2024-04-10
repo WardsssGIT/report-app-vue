@@ -10,7 +10,7 @@ export default {
             email: '',
             userId: '',
             refreshToken: '',
-            expiresIn: 'sdsds',
+            expiresIn: '',
             autoLogout: false,
         };
     },

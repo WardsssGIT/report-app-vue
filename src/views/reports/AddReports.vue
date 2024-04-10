@@ -77,7 +77,7 @@ export default {
         }
       }
 
-      axios.post('http://192.168.100.24:7070/api/reports-upload', this.report)
+      axios.post('reports-upload', this.report)
         .then(() => {
           this.resetForm();
           // If you have a method to fetch updated forms, call it here

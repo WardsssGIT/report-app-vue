@@ -32,7 +32,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapMutations, mapActions } from 'vuex'; // Import mapMutations and mapActions
+import SignupValidations from '../services/SignupValidations';
 
 export default {
   name: 'LoginPage',
@@ -40,28 +41,40 @@ export default {
     return {
       email: '',
       password: '',
-      errors: {},
-      error: ''
+      errors: [],
+      error: '',
     };
   },
   methods: {
+    ...mapMutations({
+      setAutoLogout: 'SET_AUTO_LOGOUT_MUTATION', 
+      setUserTokenData: 'SET_USER_TOKEN_DATA_MUTATION',
+    }),
+    ...mapActions([ 'login user' ]), // Map the login action
     async onLogin() {
-  try {
-    const response = await axios.post('http://192.168.100.24:7070/api/login', { email: this.email, password: this.password });
-    console.log(response.data);
-    let tokenData = {
-      token: response.data.token
-    };
-    localStorage.setItem('userData', JSON.stringify(tokenData));
-    this.$router.replace('/dashboard');
-  }catch(error) {
-    this.error = error.message || 'An error occured';
-  }finally{
-    this.loading = false;
-  }
-},
+      let validations = new SignupValidations(
+        this.email,
+        this.password,
+      );
 
-  }
+      this.errors = validations.checkValidations();
+      if (this.errors.length) {
+        return false;
+      }
+      this.error = '';
+
+      try {
+        // Dispatch the login action
+        await this.Login({ email: this.email, password: this.password });
+
+        // Redirect user
+        this.$router.push('/dashboard');
+      } catch (error) {
+        // Handle error
+        this.error = error.message || 'An error occurred while logging in.';
+      }
+    },
+  },
 };
 </script>
 

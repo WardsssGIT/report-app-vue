@@ -95,7 +95,7 @@ export default {
         Department_involved: this.report.Department_involved,
       };
 
-      axios.put('http://127.0.0.1:8000/api/reports/' + this.$route.params.data, data)
+      axios.put('reports/' + this.$route.params.data, data)
         .then(() => {
           // If successful, clear form fields and any error message
           this.resetForm();

@@ -1,26 +1,35 @@
-import Validations from "./Validations";
+import Validations from './Validations';
 
 export default class SignupValidations {
-    constructor(name, email, password){
-        this.name = name;
+    constructor(email, password) {
         this.email = email;
         this.password = password;
     }
 
-    checkValidation(){
+    checkValidations() {
         let errors = [];
 
-        if (!Validations.checkName(this.name)){
-            errors['name'] = 'Invalid Name';
-        }
-
-        if (!Validations.checkEmail(this.email)){
+        //email validations
+        if (!Validations.checkEmail(this.email)) {
             errors['email'] = 'Invalid Email';
         }
 
-        if (!Validations.minLength(this.password, 6)){
-            errors['password'] = 'Password should be correct';
+        //password Validations
+        if (!Validations.minLength(this.password, 6)) {
+            errors['password'] = 'password should be of 6 characters';
         }
+
         return errors;
-    }    
+    }
+
+    static getErrorMessageFromCode(errorCode) {
+        switch (errorCode) {
+            case 'EMAIL_EXISTS':
+                return 'Email already exists';
+            case 'INVALID_LOGIN_CREDENTIALS':
+                return 'Invalid email/password'
+            default:
+                return 'An error occured. Please try again later.'
+        }
+    }
 }
