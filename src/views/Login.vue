@@ -52,10 +52,27 @@ export default {
     }),
     ...mapActions([ 'login user' ]), // Map the login action
     async onLogin() {
+<<<<<<< HEAD
       let validations = new SignupValidations(
         this.email,
         this.password,
       );
+=======
+  try {
+    const response = await axios.post('login', { email: this.email, password: this.password });
+    console.log(response.data);
+    let tokenData = {
+      token: response.data.token
+    };
+    localStorage.setItem('userData', JSON.stringify(tokenData));
+    this.$router.replace('/dashboard');
+  }catch(error) {
+    this.error = error.message || 'An error occured';
+  }finally{
+    this.loading = false;
+  }
+},
+>>>>>>> 9845f47867d59dce82d2fe632426034e8142847e
 
       this.errors = validations.checkValidations();
       if (this.errors.length) {

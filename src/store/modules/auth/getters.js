@@ -5,6 +5,7 @@ import {
 
 export default {
     [GET_USER_TOKEN_GETTER]: (state) => {
+        console.log(state)
         return state.token;
     },
 

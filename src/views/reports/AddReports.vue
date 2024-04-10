@@ -101,7 +101,7 @@ export default {
       // Implement saving the report as temporary here
       // For example, you can make an API call to save the report with a temporary flag
       // You may need to adjust this according to your backend API
-      axios.post('http://192.168.100.24:7070/api/save-temporary-report', this.report)
+      axios.post('http://192.168.0.105:7070/api/save-temporary-report', this.report)
         .then(() => {
           alert('Report saved as temporary.');
         })
