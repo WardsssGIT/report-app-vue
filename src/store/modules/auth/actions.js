@@ -13,6 +13,8 @@ export default {
     try {
       const response = await Axios.post('http://192.168.100.24:7070/api/login', postData);
       
+
+      //console.log(postData);
       const userData = {
         id: response.data.id,
         name: response.data.name,
