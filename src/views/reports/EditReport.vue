@@ -95,11 +95,7 @@ export default {
         Department_involved: this.report.Department_involved,
       };
 
-<<<<<<< HEAD
       axios.put('reports/' + this.$route.params.data, data)
-=======
-      axios.put('http://192.168.0.105:7070/api/reports/' + this.$route.params.data, data)
->>>>>>> 9845f47867d59dce82d2fe632426034e8142847e
         .then(() => {
           // If successful, clear form fields and any error message
           this.resetForm();
