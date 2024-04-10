@@ -9,7 +9,7 @@ export default {
         state.token = payload.token;
         state.expiresIn = payload.expiresIn;
         state.refreshToken = payload.refreshToken;
-        state.userId = payload.userId;
+        state.userId = payload.id;
         state.autoLogout = false;
     },
 
