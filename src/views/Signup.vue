@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { LOADING_SPINNER_SHOW_MUTATION } from '@/store/storeconstants';
 import axios from 'axios';
 import { mapMutations } from 'vuex';
 
@@ -55,7 +56,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['showLoading']), // Import showLoading mutation from Vuex store
+    ...mapMutations({
+      showLoading:LOADING_SPINNER_SHOW_MUTATION
+    }),
     async registerUser() {
       try {
         this.showLoading(true); // Trigger Vuex mutation to show loading spinner

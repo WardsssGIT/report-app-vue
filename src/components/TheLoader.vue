@@ -1,5 +1,4 @@
 <template>
-    <div class="back"></div>
     <div class="loading_box">
         <div class="lds-roller">
             <div></div>

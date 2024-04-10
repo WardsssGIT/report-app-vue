@@ -25,7 +25,7 @@
           </label>
           <span>Don't have an account? <router-link to="/register" class="signup-link">Register</router-link></span>
         </div>
-        <button type="submit" class="login-button" style="margin-top: 10px;">Login</button>
+        <button type="submit" class="login-button" style="margin-top: 10px;" >Login</button>
       </form>
     </div>
   </div>
@@ -33,6 +33,7 @@
 
 <script>
 import { mapMutations, mapActions } from 'vuex'; // Import mapMutations and mapActions
+import {LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from '../store/storeconstants'
 import SignupValidations from '../services/SignupValidations';
 
 export default {
@@ -45,37 +46,40 @@ export default {
       error: '',
     };
   },
-  methods: {
-    ...mapMutations({
-      setAutoLogout: 'SET_AUTO_LOGOUT_MUTATION', 
-      setUserTokenData: 'SET_USER_TOKEN_DATA_MUTATION',
-    }),
-    ...mapActions([ 'login user' ]), // Map the login action
-    async onLogin() {
-      let validations = new SignupValidations(
-        this.email,
-        this.password,
-      );
+    methods: {
+        ...mapActions('auth', {
+            login: LOGIN_ACTION
+        }),
+        ...mapMutations({
+            showLoading: LOADING_SPINNER_SHOW_MUTATION
+        }),
+        
+        async onLogin() {
+            
+          const validation = new SignupValidations(this.email, this.password);
 
-      this.errors = validations.checkValidations();
-      if (this.errors.length) {
-        return false;
-      }
-      this.error = '';
+            this.errors = validation.checkValidations()
+            if ('email' in this.errors || 'password' in this.errors) {
+                return false
+            }
+            this.errorMessage = ''
+            this.showLoading(true);
 
-      try {
-        // Dispatch the login action
-        await this.Login({ email: this.email, password: this.password });
-
-        // Redirect user
-        this.$router.push('/dashboard');
-      } catch (error) {
-        // Handle error
-        this.error = error.message || 'An error occurred while logging in.';
-      }
-    },
-  },
-};
+            const data = {
+                email: this.email,
+                password: this.password
+            }
+            try {
+                await this.login(data)
+                this.$router.push('dashboard')
+            } catch (error) {
+                this.errorMessage = error
+                this.showLoading(false)
+            }
+            this.showLoading(false);
+        }
+    }
+}
 </script>
 
 <style scoped>
