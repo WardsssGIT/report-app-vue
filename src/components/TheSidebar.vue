@@ -15,8 +15,8 @@ export default {
   data() {
     return {
       sidebarItems: [
-        { label: 'Dashboard', url: '/dashboard' },
-        { label: 'Reports', url: '/Reports' },
+        { label: 'Dashboard', url: '/admin/dashboard' },
+        { label: 'Reports', url: '/admin/reportsform' },
       ],
     };
   },

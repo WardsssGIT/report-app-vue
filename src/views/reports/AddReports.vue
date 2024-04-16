@@ -50,7 +50,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { GET_USER_TOKEN_GETTER } from '@/store/storeconstants';
+import { mapGetters } from 'vuex';
+import axiosInstance from '@/services/AxiosTokenInstance';
 
 export default {
   name: 'MakeReport',
@@ -66,7 +68,16 @@ export default {
       submitError: ''
     };
   },
-
+  mounted() {
+    //this.fetchdata()
+    axiosInstance
+    console.log(this.token)
+  },
+  computed: {
+    ...mapGetters('auth', {
+      token: GET_USER_TOKEN_GETTER
+    })
+  },
   methods: {
     submitForm() {
       // Check if all required fields are filled
@@ -77,7 +88,7 @@ export default {
         }
       }
 
-      axios.post('reports-upload', this.report)
+      axiosInstance.post('http://192.168.0.100:7070/api/reports-upload', this.report)
         .then(() => {
           this.resetForm();
           // If you have a method to fetch updated forms, call it here
@@ -101,7 +112,7 @@ export default {
       // Implement saving the report as temporary here
       // For example, you can make an API call to save the report with a temporary flag
       // You may need to adjust this according to your backend API
-      axios.post('http://192.168.0.105:7070/api/save-temporary-report', this.report)
+      axiosInstance.post('http://192.168.0.100:7070/api/save-temporary-report', this.report)
         .then(() => {
           alert('Report saved as temporary.');
         })

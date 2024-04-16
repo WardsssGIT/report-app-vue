@@ -11,7 +11,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { AUTO_LOGIN_ACTION } from './store/storeconstants';
+//import { AUTO_LOGIN_ACTION } from './store/storeconstants';
 import { defineAsyncComponent } from 'vue';
 
 const TheLoader = defineAsyncComponent(() =>  import('./components/TheLoader.vue'));
@@ -29,7 +29,7 @@ export default {
     TheLoader
   },
   created(){
-    this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`)
+    //this.$store.dispatch(`auth/${AUTO_LOGIN_ACTION}`)
   },
 }
 </script>

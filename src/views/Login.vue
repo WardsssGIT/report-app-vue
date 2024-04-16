@@ -10,13 +10,13 @@
       <form class="login-form" @submit.prevent="onLogin">
         <div class="form-group">
           <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" class="input-field" v-model.trim="email">
+          <input type="email" id="email" placeholder="Enter your email" class="input-field" v-model.trim="userData.email">
           <div class="error" v-if="errors.email">{{ errors.email }}</div>
         </div>
         <div class="form-group">
           <label for="password" class="form-label">Password</label>
           <input type="password" id="password" placeholder="Enter your password" class="input-field"
-            v-model.trim="password">
+            v-model.trim="userData.password">
           <div class="error" v-if="errors.password">{{ errors.password }}</div>
         </div>
         <div class="additional-options">
@@ -34,14 +34,19 @@
 <script>
 import { mapMutations, mapActions } from 'vuex'; // Import mapMutations and mapActions
 import {LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from '../store/storeconstants'
-import SignupValidations from '../services/SignupValidations';
+//import SignupValidations from '../services/SignupValidations';
 
 export default {
   name: 'LoginPage',
   data() {
     return {
+      userData: {
+      id: '',
       email: '',
+      name: '',
       password: '',
+      token: ''
+      },
       errors: [],
       error: '',
     };
@@ -56,22 +61,26 @@ export default {
         
         async onLogin() {
             
-          const validation = new SignupValidations(this.email, this.password);
+          // const validation = new SignupValidations(this.email, this.password);
 
-            this.errors = validation.checkValidations()
-            if ('email' in this.errors || 'password' in this.errors) {
-                return false
-            }
-            this.errorMessage = ''
-            this.showLoading(true);
+          //   this.errors = validation.checkValidations()
+          //   if ('email' in this.errors || 'password' in this.errors) {
+          //       return false
+          //   }
+          //   this.errorMessage = ''
+          //   this.showLoading(true);
 
             const data = {
-                email: this.email,
-                password: this.password
+                userID: this.userData.userid,
+                name: this.userData.name,
+                email: this.userData.email,
+                password: this.userData.password,
+                token: this.userData.token
             }
             try {
                 await this.login(data)
-                this.$router.push('dashboard')
+                console.log(data)
+                this.$router.push('/admin/dashboard')
             } catch (error) {
                 this.errorMessage = error
                 this.showLoading(false)

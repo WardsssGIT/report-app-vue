@@ -2,7 +2,7 @@
   <div class='card' style="margin-left: 15%; margin-top: 80px;">
     <div class="card-header">
       <label for="" class="text-primary h4 float-start">Report's List</label>
-      <router-link to="/reports/add" class="btn btn-primary btn-sm float-end">Create Reports</router-link>
+      <router-link to="/admin/addreport" class="btn btn-primary btn-sm float-end">Create Reports</router-link>
     </div>
     <div class="card-body">
       <div class="table">
@@ -41,7 +41,7 @@
 <script>
 import { GET_USER_TOKEN_GETTER } from '@/store/storeconstants';
 import { mapGetters } from 'vuex';
-import axios from 'axios';
+import axiosInstance from '../services/AxiosTokenInstance';
 
 export default {
   data() {
@@ -51,6 +51,7 @@ export default {
   },
   mounted() {
     //this.fetchdata()
+    axiosInstance
     console.log(this.token)
   },
   computed: {
@@ -60,7 +61,7 @@ export default {
   },
   methods: {
     remove(id) {
-      axios.put(`/reports/archive/${id}`)
+      axiosInstance.put(`/reports/archive/${id}`)
       this.fetchdata();
     },
     viewReport(index) {
@@ -73,7 +74,7 @@ export default {
       this.$emit('removeReport', index);
     },
     fetchdata() {
-      axios.get('/reports', {
+      axiosInstance.get('/reports', {
         Authentication: 'Baerer ' + this.token
       })
         .then(response => {
