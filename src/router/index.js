@@ -9,9 +9,12 @@ import MainLayout from "@/views/MainLayout.vue";
 //const Dashboard = () => import('../views/Dashboard.vue');
 //import MainLayout from "@/views/MainLayout.vue";
 import ReportsForm from "../views/ReportsForm.vue";
+import AccountList from "../views/AccountList.vue";
 import AddReports from "@/views/reports/AddReports.vue";
 import EditReport from "@/views/reports/EditReport.vue";
 import ViewReport from "@/views/reports/ViewReport.vue";
+import AddAccount from "@/views/UserAccount/AddAccount.vue";
+
 
 // const userSide = (props) => [
 //   {   
@@ -98,6 +101,16 @@ const adminSide = (props) => [
   component: ReportsForm
 },
 {
+  path: 'accountlist',
+  name: props + '.accountlist',
+  meta: {
+    auth: true,
+    user: 'admin',
+    userType: 'admin'
+  },
+  component: AccountList
+},
+{
   path: 'addreport',
   name: props + '.addreport',
   meta: {
@@ -126,6 +139,16 @@ const adminSide = (props) => [
     userType: 'admin'
   },
   component: ViewReport
+},
+{
+  path: 'addaccount',
+  name: props + '.addaccount',
+  meta: {
+    auth: true,
+    user: 'admin',
+    userType: 'admin'
+  },
+  component: AddAccount
 },
 
 ]

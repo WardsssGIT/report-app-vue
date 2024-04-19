@@ -64,6 +64,7 @@ export default {
         this.showLoading(true); // Trigger Vuex mutation to show loading spinner
 
         await axios.post('register', {
+          department: this.name,
           name: this.name,
           email: this.email,
           password: this.password

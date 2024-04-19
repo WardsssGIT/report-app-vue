@@ -7,6 +7,7 @@
       <h1 class="page-title">REPORTING TOOL</h1>
       <p class="login-label">Login</p>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
+      <div class="alert alert-success" v-if="successMessage">{{ successMessage }}</div>
       <form class="login-form" @submit.prevent="onLogin">
         <div class="form-group">
           <label for="email" class="form-label">Email</label>
@@ -15,80 +16,90 @@
         </div>
         <div class="form-group">
           <label for="password" class="form-label">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" class="input-field"
-            v-model.trim="userData.password">
+          <input type="password" id="password" placeholder="Enter your password" class="input-field" v-model.trim="userData.password">
           <div class="error" v-if="errors.password">{{ errors.password }}</div>
         </div>
-        <div class="additional-options">
-          <label for="remember-me" class="remember-checkbox" style="margin-top: 5px;">
-            <input id="remember-me" type="checkbox"> Remember Me
-          </label>
-          <span>Don't have an account? <router-link to="/register" class="signup-link">Register</router-link></span>
-        </div>
-        <button type="submit" class="login-button" style="margin-top: 10px;" >Login</button>
+        <button type="submit" class="login-button">Login</button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'; // Import mapMutations and mapActions
-import {LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from '../store/storeconstants'
-//import SignupValidations from '../services/SignupValidations';
+import { mapMutations, mapActions } from 'vuex';
+import { LOADING_SPINNER_SHOW_MUTATION, LOGIN_ACTION } from '../store/storeconstants';
 
 export default {
   name: 'LoginPage',
   data() {
     return {
       userData: {
-      id: '',
-      email: '',
-      name: '',
-      password: '',
-      token: ''
+        email: '',
+        password: ''
       },
-      errors: [],
+      errors: {},
       error: '',
+      successMessage: ''
     };
   },
-    methods: {
-        ...mapActions('auth', {
-            login: LOGIN_ACTION
-        }),
-        ...mapMutations({
-            showLoading: LOADING_SPINNER_SHOW_MUTATION
-        }),
+  methods: {
+    ...mapActions('auth', {
+      login: LOGIN_ACTION
+    }),
+    ...mapMutations({
+      showLoading: LOADING_SPINNER_SHOW_MUTATION
+    }),
+    async onLogin() {
+      // Reset error messages
+      this.error = '';
+      this.successMessage = '';
+      this.errors = {};
+
+      // Validate email and password
+      if (!this.userData.email) {
+        this.errors.email = 'Email is required.';
+      }
+      if (!this.userData.password) {
+        this.errors.password = 'Password is required.';
+      }
+
+      // If there are validation errors, do not proceed with login
+      if (Object.keys(this.errors).length > 0) {
+        return;
+      }
+
+      try {
+        this.showLoading(true); // Show loading spinner
         
-        async onLogin() {
-            
-          // const validation = new SignupValidations(this.email, this.password);
+        const data = {
+          email: this.userData.email,
+          password: this.userData.password
+        };
 
-          //   this.errors = validation.checkValidations()
-          //   if ('email' in this.errors || 'password' in this.errors) {
-          //       return false
-          //   }
-          //   this.errorMessage = ''
-          //   this.showLoading(true);
+        // Call Vuex action to perform login
+        await this.login(data);
 
-            const data = {
-                userID: this.userData.userid,
-                name: this.userData.name,
-                email: this.userData.email,
-                password: this.userData.password,
-                token: this.userData.token
-            }
-            try {
-                await this.login(data)
-                console.log(data)
-                this.$router.push('/admin/dashboard')
-            } catch (error) {
-                this.errorMessage = error
-                this.showLoading(false)
-            }
-            this.showLoading(false);
+        // Clear form fields on successful login
+        this.userData.email = '';
+        this.userData.password = '';
+
+        // Display success message and redirect after a brief delay
+        this.successMessage = 'Login successful! Redirecting...';
+        setTimeout(() => {
+          this.$router.push('/admin/dashboard');
+        }, 1000); // Redirect after 1 second
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          this.error = 'Invalid email or password. Please try again.';
+        } else {
+          this.error = 'Invalid email or password. Please try again.';
         }
+      } finally {
+        this.showLoading(false); // Hide loading spinner
+      }
     }
-}
+  }
+};
 </script>
 
 <style scoped>
@@ -164,26 +175,10 @@ export default {
   border-color: #087f23;
 }
 
-.remember-checkbox {
-  margin-right: 10px;
-  font-size: 16px;
-}
-
-.additional-options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.signup-link {
-  color: #087f23;
-  text-decoration: none;
-  font-size: 16px;
-}
-
-.signup-link:hover {
-  text-decoration: underline;
+.error {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .login-button {
@@ -201,11 +196,12 @@ export default {
   background-color: #005711;
 }
 
-p {
-  font-size: 16px;
-}
-
 .alert-danger {
   color: #ff0000;
+}
+
+.alert-success {
+  color: #008000;
+  margin-top: 10px;
 }
 </style>

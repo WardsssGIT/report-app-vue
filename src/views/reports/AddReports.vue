@@ -3,7 +3,7 @@
     <!-- Content for Make Report -->
     <div class="container initial-setting-container">
       <!-- Back Button -->
-      <router-link to="/Reports">
+      <router-link to="/admin/reportsform">
         <button class="btn btn-secondary mb-3" style="margin-right: 100%; margin-top: 20px;">Back</button>
       </router-link>
 

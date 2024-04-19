@@ -15,7 +15,7 @@ export default {
     
 
     // try {
-    //  const response = await Axios.post('http://192.168.0.100:7070/api/login', postData);
+    //  const response = await Axios.post('http://192.168.68.103:7070/api/login', postData);
       
 
     //   //console.log(postData);
@@ -52,7 +52,7 @@ export default {
     };
 
     try {
-      const response = await Axios.post('http://192.168.0.100:7070/api/register', postData);
+      const response = await Axios.post('http://192.168.68.103:7070/api/register', postData);
       
       const userData = {
         email: response.data.email,

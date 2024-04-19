@@ -17,6 +17,7 @@ export default {
       sidebarItems: [
         { label: 'Dashboard', url: '/admin/dashboard' },
         { label: 'Reports', url: '/admin/reportsform' },
+        { label: 'Add Account', url: '/admin/accountlist' },
       ],
     };
   },
