@@ -34,7 +34,6 @@
         </table>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -50,9 +49,7 @@ export default {
     }
   },
   mounted() {
-    //this.fetchdata()
-    axiosInstance
-    console.log(this.token)
+    this.fetchdata(); // Fetch initial data when component is mounted
   },
   computed: {
     ...mapGetters('auth', {
@@ -62,28 +59,27 @@ export default {
   methods: {
     remove(id) {
       axiosInstance.put(`/reports/archive/${id}`)
-      this.fetchdata();
-    },
-    viewReport(index) {
-      console.log("View report at index", index);
-    },
-    editReport(index) {
-      console.log("Edit report at index", index);
-    },
-    removeReport(index) {
-      this.$emit('removeReport', index);
+        .then(() => {
+          // After successfully removing, fetch updated data
+          this.fetchdata();
+        })
+        .catch(error => {
+          console.error('Error removing report:', error);
+        });
     },
     fetchdata() {
       axiosInstance.get('/reports', {
-        Authentication: 'Baerer ' + this.token
+        headers: {
+          //Authorization: `Bearer ${this.token}` // Corrected typo in "Authorization"
+        }
       })
         .then(response => {
-          this.reports = response.data
-          console.log(this.reports)
-
-        }).catch(error => {
-          console.log(error)
+          this.reports = response.data;
+          console.log(this.reports);
         })
+        .catch(error => {
+          console.log('Error fetching reports:', error);
+        });
     }
   }
 };

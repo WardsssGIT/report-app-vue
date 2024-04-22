@@ -87,11 +87,16 @@ export default {
           return;
         }
       }
-
-      axiosInstance.post('http://192.168.0.100:7070/api/reports-upload', this.report)
+      const headers = {
+        Authorization: `Bearer ${this.token}`
+      };
+      axiosInstance.post('http://192.168.68.103:7070/api/reports-upload', this.report, { headers })
         .then(() => {
           this.resetForm();
+          // Show success message alert
+          alert('Report submitted successfully!');
           // If you have a method to fetch updated forms, call it here
+          this.fetchdata(); // <-- Add this line
         })
         .catch(error => {
           if (error.response && error.response.data && error.response.data.message) {
@@ -112,7 +117,7 @@ export default {
       // Implement saving the report as temporary here
       // For example, you can make an API call to save the report with a temporary flag
       // You may need to adjust this according to your backend API
-      axiosInstance.post('http://192.168.0.100:7070/api/save-temporary-report', this.report)
+      axiosInstance.post('http://192.168.68.103:7070/api/save-temporary-report', this.report)
         .then(() => {
           alert('Report saved as temporary.');
         })

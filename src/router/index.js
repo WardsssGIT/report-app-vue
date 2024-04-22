@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
-import store from '../store/store';
-import { IS_USER_AUTHENTICATE_GETTER, GET_USER_TOKEN_GETTER } from '../store/storeconstants';
+//import store from '../store/store';
+//import { IS_USER_AUTHENTICATE_GETTER, GET_USER_TOKEN_GETTER } from '../store/storeconstants';
 import Dashboard from "../views/Dashboard.vue";
 import Announcement from "../views/Announcement.vue";
 import Signup from "@/views/Signup.vue";
 import MainLayout from "@/views/MainLayout.vue";
 //const Dashboard = () => import('../views/Dashboard.vue');
 //import MainLayout from "@/views/MainLayout.vue";
-import ReportsForm from "../views/ReportsForm.vue";
+import ReportsForm   from "../views/ReportsForm.vue";
 import AccountList from "../views/AccountList.vue";
 import AddReports from "@/views/reports/AddReports.vue";
 import EditReport from "@/views/reports/EditReport.vue";
@@ -216,48 +216,48 @@ const router = createRouter({
 //       next()
 //   }
 // }
-router.beforeEach((to, from, next) => {
+// router.beforeEach((to, from, next) => {
 
-  // Check if the user is Autheticated
-  const isAuth = store.getters[`auth/${IS_USER_AUTHENTICATE_GETTER}`]
-  const isToken = store.getters[`auth/${GET_USER_TOKEN_GETTER}`]
-  console.log(isToken)
-  console.log(isAuth)
-  /* if (
-      'auth' in to.meta &&
-      to.meta.auth &&
-      !store.getters[`auth/${IS_USER_AUTHENTICATE_GETTER}`]
-  ) {
-      next('/login');
-  } else {
-      next();
-  } */
-/*         if (isAuth) {
-       if (to.meta.user == 'admin')
-       {
-          userMiddleware(to, from, next)
-       }
-   } else {
-       if (to.meta.user !== 'guest') {
-           next('/')
-       } else {
-           next()
-       }
-   }  */
+//   Check if the user is Autheticated
+//   const isAuth = store.getters[`auth/${IS_USER_AUTHENTICATE_GETTER}`]
+//   const isToken = store.getters[`auth/${GET_USER_TOKEN_GETTER}`]
+//   console.log(isToken)
+//   console.log(isAuth)
+//   if (
+//       'auth' in to.meta &&
+//       to.meta.auth &&
+//       !store.getters[`auth/${IS_USER_AUTHENTICATE_GETTER}`]
+//   ) {
+//       next('/login');
+//   } else {
+//       next();
+//   } 
+//          if (isAuth) {
+//        if (to.meta.user == 'admin')
+//        {
+//           userMiddleware(to, from, next)
+//        }
+//    } else {
+//        if (to.meta.user !== 'guest') {
+//            next('/')
+//        } else {
+//            next()
+//        }
+//    }  
 
-   if (to.meta.auth && !isAuth && !isToken) {
-      // Redirect unauthenticated users to the login page
-      next('/login');
-  } else if (to.meta.auth && !isAuth && isToken) {
-      // If token is present but not authenticated, attempt to authenticate
-      // You may need to dispatch an action to authenticate the user here
-  } else if (to.meta.auth && isAuth) {
-      // Authenticated user, allow access to the route
-      next();
-  } else {
-      // No authentication required, allow access
-      next();
-  }
-});
+//    if (to.meta.auth && !isAuth && !isToken) {
+//        Redirect unauthenticated users to the login page
+//       next('/login');
+//   } else if (to.meta.auth && !isAuth && isToken) {
+//        If token is present but not authenticated, attempt to authenticate
+//        You may need to dispatch an action to authenticate the user here
+//   } else if (to.meta.auth && isAuth) {
+//        Authenticated user, allow access to the route
+//       next();
+//   } else {
+//        No authentication required, allow access
+//       next();
+//   }
+//});
 
 export default router;
